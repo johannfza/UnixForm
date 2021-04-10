@@ -1,14 +1,27 @@
 # UnixForm
 
-Links
+A simple bootstrap for for generating a custom JSON file
 
-DateTimePicker
-https://www.jqueryscript.net/time-clock/Clean-jQuery-Date-Time-Picker-Plugin-datetimepicker.html
+### Features
 
-Embeddable code editor
-https://ace.c9.io/
+- Generates a JSON Object in stringyfied template by filling up the form
+- Supports copying to clipboard
+- Supports downloading the file
 
-Date Javascript
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+### Usage
 
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+1. Download the repo
+2. Open index.html in your preferred browser
+
+### References
+
+This project use packages from:
+
+- [jQuery: Clean DateTimePicker](https://www.jqueryscript.net/time-clock/Clean-jQuery-Date-Time-Picker-Plugin-datetimepicker.html)
+- [Ace: Code Editor](https://ace.c9.io/)
+
+Some other docs:
+
+- [Javascript: Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+- [Javascript: JSON.stringyfy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
+- [Bootstrap: Checkout Example](https://getbootstrap.com/docs/4.0/examples/checkout/)
