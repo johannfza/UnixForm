@@ -36,7 +36,7 @@
       <main>
         <div class="py-5 text-center">
           <h2>Unix Form</h2>
-          <p class="lead">Generate your .json file using the follwing form.</p>
+          <p class="lead">Generate your .json file using the following form.</p>
         </div>
         <h4 class="mb-3">Maintenance Info</h4>
         <form>
@@ -244,6 +244,7 @@
       maintenanceInfo.preventLoginEndDateTime = Date.parse(
         document.getElementById("preventLoginEndDateTime").value
       ).toString()
+      console.log("Generating template with data...")
       console.log(maintenanceInfo)
       updateEditorContent()
     }
@@ -251,8 +252,7 @@
     document.addEventListener("DOMContentLoaded", initlialize)
 
     function initlialize() {
-      console.log(maintenanceInfo)
-
+      console.log("DOM content loaded")
       var editor = ace.edit("editor")
       updateEditorContent()
     }

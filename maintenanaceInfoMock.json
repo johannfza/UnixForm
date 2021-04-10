@@ -1,0 +1,14 @@
+{
+  "mainTitle": "Scheduled maintenance on 7 Mar",
+  "serviceTitle": "Service affected on 7 Mar",
+  "maintenanceSchedule": [
+    "Maintenance Schedule 1",
+    "Maintenance Schedule 2",
+    "Maintenance Schedule 3"
+  ],
+  "courtesyLine": "We apologise for any inconvinience caused",
+  "notificationStartDateTime": "1618340400000",
+  "notificationEndDateTime": "1619726400000",
+  "preventLoginStartDateTime": "1619553600000",
+  "preventLoginEndDateTime": "1619640000000"
+}
