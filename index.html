@@ -9,13 +9,14 @@
     <!-- Ace Editor-->
     <style type="text/css" media="screen">
       #editor {
+        margin: auto;
         height: 400px;
         width: 100%;
       }
-      /* .scrollmargin {
-        height: 100%;
+      .scrollmargin {
+        height: 80px;
         text-align: center;
-      } */
+      }
     </style>
 
     <!-- Bootstrap -->
@@ -53,7 +54,9 @@
             />
           </div>
           <div class="form-group">
-            <label for="maintenanceSchedule" class="form-label">Maintenance Schedule</label>
+            <label for="maintenanceSchedule" class="form-label"
+              >Maintenance Schedule</label
+            >
             <textarea
               class="form-control"
               id="maintenanceSchedule"
@@ -80,7 +83,9 @@
             />
           </div>
           <div class="form-group">
-            <label for="notificationEndDateTime" class="form-label">Notification End Time</label>
+            <label for="notificationEndDateTime" class="form-label"
+              >Notification End Time</label
+            >
             <input
               class="form-control"
               type="text"
@@ -100,7 +105,9 @@
             />
           </div>
           <div class="form-group">
-            <label for="preventLoginEndDateTime" class="form-label">Prevent Login End Time</label>
+            <label for="preventLoginEndDateTime" class="form-label"
+              >Prevent Login End Time</label
+            >
             <input
               class="form-control"
               type="text"
@@ -113,7 +120,7 @@
           <div class="row">
             <div class="col-auto mr-auto">
               <input
-                type="buttons"
+                type="button"
                 class="btn btn-primary"
                 onclick="submitForm()"
                 value="Create .json"
@@ -121,7 +128,7 @@
             </div>
             <div class="col-auto">
               <input
-                type="buttons"
+                type="button"
                 class="btn btn-primary"
                 onclick="autoFillDemo()"
                 value="Demo"
@@ -134,17 +141,22 @@
 
         <div class="container row">
           <div class="col-10">
-            <div id="editor">
-              function foo(items) { var x = "All this is syntax highlighted";
-              return x; }
+            <div class="scrollmargin">
+              <div id="editor"></div>
             </div>
           </div>
           <div class="col-2">
             <input
-              type="buttons"
+              type="button"
               class="btn btn-primary"
               onclick="downloadMaintenanaceInfo()"
               value="Download"
+            />
+            <input
+              type="button"
+              class="btn btn-primary"
+              onclick="copyToClipboard()"
+              value="Copy"
             />
           </div>
         </div>
@@ -180,6 +192,8 @@
     var editor = ace.edit("editor", {
       theme: "ace/theme/monokai",
       mode: "ace/mode/javascript",
+      minLines: 20,
+      maxLines: 40,
       autoScrollEditorIntoView: true
     })
     document.getElementById("editor").style.fontSize = "16px"
@@ -194,7 +208,9 @@
       maintenanceInfo.serviceTitle = document.getElementById(
         "serviceTitle"
       ).value
-      maintenanceInfo.maintenanceSchedule = pipeSeperatedValuesToArray(document.getElementById("maintenanceSchedule").value)
+      maintenanceInfo.maintenanceSchedule = pipeSeperatedValuesToArray(
+        document.getElementById("maintenanceSchedule").value
+      )
       maintenanceInfo.courtesyLine = document.getElementById(
         "courtesyLine"
       ).value
@@ -227,11 +243,13 @@
       editor.setValue(JSON.stringify(maintenanceInfo, null, 2))
     }
 
-    function pipeSeperatedValuesToArray(psValue){
-      if psValue.isEmpty {
+    function pipeSeperatedValuesToArray(psValue) {
+      if (psValue == "") {
         return []
-      } 
-      var array = csvValue.split("|")
+      }
+      var array = psValue.split("|")
+      array = array.map((s) => s.trim())
+
       return array
     }
 
@@ -249,27 +267,33 @@
       downloadAnchorNode.remove()
     }
 
-    function autoFillDemo(){
-     document.getElementById("mainTitle").value = "Scheduled maintenance on 7 Mar"
-      maintenanceInfo.serviceTitle = document.getElementById(
-        "serviceTitle"
-      ).value
-      maintenanceInfo.maintenanceSchedule = pipeSeperatedValuesToArray(document.getElementById("maintenanceSchedule").value)
-      maintenanceInfo.courtesyLine = document.getElementById(
-        "courtesyLine"
-      ).value
-      maintenanceInfo.notificationStartDateTime = Date.parse(
-        document.getElementById("notificationStartDateTime").value
-      ).toString()
-      maintenanceInfo.notificationEndDateTime = Date.parse(
-        document.getElementById("notificationEndDateTime").value
-      ).toString()
-      maintenanceInfo.preventLoginStartDateTime = Date.parse(
-        document.getElementById("preventLoginStartDateTime").value
-      ).toString()
-      maintenanceInfo.preventLoginEndDateTime = Date.parse(
-        document.getElementById("preventLoginEndDateTime").value
-      ).toString()
+    function copyToClipboard() {
+      var el = document.createElement("textarea")
+      document.body.appendChild(el)
+      el.value = editor.getValue()
+      el.select()
+      document.execCommand("copy")
+      document.body.removeChild(el)
+      alert("Content copied")
+    }
+
+    function autoFillDemo() {
+      document.getElementById("mainTitle").value =
+        "Scheduled maintenance on 7 Mar"
+      document.getElementById("serviceTitle").value =
+        "Service affected on 7 Mar"
+      document.getElementById("maintenanceSchedule").value =
+        "Maintenance Schedule 1 | Maintenance Schedule 2 | Maintenance Schedule 3"
+      document.getElementById("courtesyLine").value =
+        "We apologise for any inconvinience caused"
+      document.getElementById("notificationStartDateTime").value =
+        "2021/04/14 03:00"
+      document.getElementById("notificationEndDateTime").value =
+        "2021/04/30 04:00"
+      document.getElementById("preventLoginStartDateTime").value =
+        "2021/04/28 04:00"
+      document.getElementById("preventLoginEndDateTime").value =
+        "2021/04/29 04:00"
     }
   </script>
 </html>
