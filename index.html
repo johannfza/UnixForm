@@ -37,7 +37,7 @@
         <hr class="my-4" />
         <form>
           <div class="form-group">
-            <label for="title">Main Title</label>
+            <label for="mainTitle" class="form-label">Main Title</label>
             <input
               class="form-control"
               id="mainTitle"
@@ -45,7 +45,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="subtitle">Service Title</label>
+            <label for="serviceTitle" class="form-label">Service Title</label>
             <input
               class="form-control"
               id="serviceTitle"
@@ -53,15 +53,23 @@
             />
           </div>
           <div class="form-group">
-            <label for="subtitle">Coutesy Line</label>
+            <label for="maintenanceSchedule" class="form-label">Maintenance Schedule</label>
+            <textarea
+              class="form-control"
+              id="maintenanceSchedule"
+              placeholder="pipe seperated values | point 1 | point 2 | ..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="courtesyLine" class="form-label">Courtesy Line</label>
             <input
               class="form-control"
-              id="serviceTile"
+              id="courtesyLine"
               placeholder="We apologise for any inconvinience caused"
             />
           </div>
           <div class="form-group">
-            <label for="notificationStartDateTime"
+            <label for="notificationStartDateTime" class="form-label"
               >Notification Start Time</label
             >
             <input
@@ -72,7 +80,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="notificationEndDateTime">Notification End Time</label>
+            <label for="notificationEndDateTime" class="form-label">Notification End Time</label>
             <input
               class="form-control"
               type="text"
@@ -81,7 +89,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="preventLoginStartDateTime"
+            <label for="preventLoginStartDateTime" class="form-label"
               >Prevent Login Start Time</label
             >
             <input
@@ -92,7 +100,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="preventLoginEndDateTime">Prevent Login End Time</label>
+            <label for="preventLoginEndDateTime" class="form-label">Prevent Login End Time</label>
             <input
               class="form-control"
               type="text"
@@ -102,13 +110,24 @@
           </div>
 
           <br />
-          <input
-            type="buttons"
-            class="btn btn-primary"
-            onclick="submitForm()"
-            value="Create .json"
-          />
-          <br />
+          <div class="row">
+            <div class="col-auto mr-auto">
+              <input
+                type="buttons"
+                class="btn btn-primary"
+                onclick="submitForm()"
+                value="Create .json"
+              />
+            </div>
+            <div class="col-auto">
+              <input
+                type="buttons"
+                class="btn btn-primary"
+                onclick="autoFillDemo()"
+                value="Demo"
+              />
+            </div>
+          </div>
         </form>
 
         <hr class="my-4" />
@@ -150,8 +169,12 @@
     var maintenanceInfo = {
       mainTitle: "",
       serviceTitle: "",
+      maintenanceSchedule: [],
+      courtesyLine: "",
       notificationStartDateTime: "",
-      notificationEndDateTime: ""
+      notificationEndDateTime: "",
+      preventLoginStartDateTime: "",
+      preventLoginEndDateTime: ""
     }
 
     var editor = ace.edit("editor", {
@@ -170,6 +193,10 @@
       maintenanceInfo.mainTitle = document.getElementById("mainTitle").value
       maintenanceInfo.serviceTitle = document.getElementById(
         "serviceTitle"
+      ).value
+      maintenanceInfo.maintenanceSchedule = pipeSeperatedValuesToArray(document.getElementById("maintenanceSchedule").value)
+      maintenanceInfo.courtesyLine = document.getElementById(
+        "courtesyLine"
       ).value
       maintenanceInfo.notificationStartDateTime = Date.parse(
         document.getElementById("notificationStartDateTime").value
@@ -200,6 +227,14 @@
       editor.setValue(JSON.stringify(maintenanceInfo, null, 2))
     }
 
+    function pipeSeperatedValuesToArray(psValue){
+      if psValue.isEmpty {
+        return []
+      } 
+      var array = csvValue.split("|")
+      return array
+    }
+
     function downloadMaintenanaceInfo() {
       var fileName = "maintenanceInfo.json"
       var data = editor.getValue()
@@ -212,6 +247,29 @@
       document.body.appendChild(downloadAnchorNode) // required for firefox
       downloadAnchorNode.click()
       downloadAnchorNode.remove()
+    }
+
+    function autoFillDemo(){
+     document.getElementById("mainTitle").value = "Scheduled maintenance on 7 Mar"
+      maintenanceInfo.serviceTitle = document.getElementById(
+        "serviceTitle"
+      ).value
+      maintenanceInfo.maintenanceSchedule = pipeSeperatedValuesToArray(document.getElementById("maintenanceSchedule").value)
+      maintenanceInfo.courtesyLine = document.getElementById(
+        "courtesyLine"
+      ).value
+      maintenanceInfo.notificationStartDateTime = Date.parse(
+        document.getElementById("notificationStartDateTime").value
+      ).toString()
+      maintenanceInfo.notificationEndDateTime = Date.parse(
+        document.getElementById("notificationEndDateTime").value
+      ).toString()
+      maintenanceInfo.preventLoginStartDateTime = Date.parse(
+        document.getElementById("preventLoginStartDateTime").value
+      ).toString()
+      maintenanceInfo.preventLoginEndDateTime = Date.parse(
+        document.getElementById("preventLoginEndDateTime").value
+      ).toString()
     }
   </script>
 </html>
