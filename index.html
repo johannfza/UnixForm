@@ -10,11 +10,11 @@
     <style type="text/css" media="screen">
       #editor {
         margin: auto;
-        height: 400px;
+        height: 800px;
         width: 100%;
       }
       .scrollmargin {
-        height: 80px;
+        height: 0px;
         text-align: center;
       }
     </style>
@@ -31,13 +31,16 @@
       href="./resources/datetimepicker/jquery.datetimepicker.css"
     />
   </head>
-  <body>
+  <body class="bg-light">
     <div class="container">
       <main>
-        <h1>Unix Form</h1>
-        <hr class="my-4" />
+        <div class="py-5 text-center">
+          <h2>Unix Form</h2>
+          <p class="lead">Generate your .json file using the follwing form.</p>
+        </div>
+        <h4 class="mb-3">Maintenance Info</h4>
         <form>
-          <div class="form-group">
+          <div class="mb-3">
             <label for="mainTitle" class="form-label">Main Title</label>
             <input
               class="form-control"
@@ -45,7 +48,7 @@
               placeholder="Scheduled maintenance on ..."
             />
           </div>
-          <div class="form-group">
+          <div class="mb-3">
             <label for="serviceTitle" class="form-label">Service Title</label>
             <input
               class="form-control"
@@ -53,70 +56,72 @@
               placeholder="Service affected on ..."
             />
           </div>
-          <div class="form-group">
+          <div class="mb-3">
             <label for="maintenanceSchedule" class="form-label"
               >Maintenance Schedule</label
             >
             <textarea
               class="form-control"
               id="maintenanceSchedule"
-              placeholder="pipe seperated values | point 1 | point 2 | ..."
+              placeholder="Pipe seperated values | point 1 | point 2 | ..."
             ></textarea>
           </div>
-          <div class="form-group">
+          <div class="mb-3">
             <label for="courtesyLine" class="form-label">Courtesy Line</label>
             <input
               class="form-control"
               id="courtesyLine"
-              placeholder="We apologise for any inconvinience caused"
+              placeholder="We apologise for any inconvinience caused ..."
             />
           </div>
-          <div class="form-group">
-            <label for="notificationStartDateTime" class="form-label"
-              >Notification Start Time</label
-            >
-            <input
-              class="form-control"
-              type="text"
-              value=""
-              id="notificationStartDateTime"
-            />
+          <div class="mb-3 row">
+            <div class="form-group col-md-6 mb-3">
+              <label for="notificationStartDateTime" class="form-label"
+                >Notification Start Time</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                placeholder="2021/04/14 03:00"
+                id="notificationStartDateTime"
+              />
+            </div>
+            <div class="form-group col-md-6 mb-3">
+              <label for="notificationEndDateTime" class="form-label"
+                >Notification End Time</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                placeholder="2021/04/30 04:00"
+                id="notificationEndDateTime"
+              />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="notificationEndDateTime" class="form-label"
-              >Notification End Time</label
-            >
-            <input
-              class="form-control"
-              type="text"
-              value=""
-              id="notificationEndDateTime"
-            />
+          <div class="mb-3 row">
+            <div class="form-group col-md-6 mb-3">
+              <label for="preventLoginStartDateTime" class="form-label"
+                >Prevent Login Start Time</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                placeholder="2021/04/28 04:00"
+                id="preventLoginStartDateTime"
+              />
+            </div>
+            <div class="form-group col-md-6 mb-3">
+              <label for="preventLoginEndDateTime" class="form-label"
+                >Prevent Login End Time</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                placeholder="2021/04/29 04:00"
+                id="preventLoginEndDateTime"
+              />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="preventLoginStartDateTime" class="form-label"
-              >Prevent Login Start Time</label
-            >
-            <input
-              class="form-control"
-              type="text"
-              value=""
-              id="preventLoginStartDateTime"
-            />
-          </div>
-          <div class="form-group">
-            <label for="preventLoginEndDateTime" class="form-label"
-              >Prevent Login End Time</label
-            >
-            <input
-              class="form-control"
-              type="text"
-              value=""
-              id="preventLoginEndDateTime"
-            />
-          </div>
-
-          <br />
           <div class="row">
             <div class="col-auto mr-auto">
               <input
@@ -130,8 +135,16 @@
               <input
                 type="button"
                 class="btn btn-primary"
-                onclick="autoFillDemo()"
-                value="Demo"
+                onclick="clearAllFields()"
+                value="Clear"
+              />
+            </div>
+            <div class="col-auto">
+              <input
+                type="button"
+                class="btn btn-primary"
+                onclick="autoFillMockData()"
+                value="Mock Data"
               />
             </div>
           </div>
@@ -141,25 +154,29 @@
 
         <div class="container row">
           <div class="col-10">
-            <div class="scrollmargin">
-              <div id="editor"></div>
-            </div>
+            <div id="editor"></div>
+            <div class="scrollmargin"></div>
           </div>
           <div class="col-2">
-            <input
-              type="button"
-              class="btn btn-primary"
-              onclick="downloadMaintenanaceInfo()"
-              value="Download"
-            />
-            <input
-              type="button"
-              class="btn btn-primary"
-              onclick="copyToClipboard()"
-              value="Copy"
-            />
+            <div class="mb-3">
+              <input
+                type="button"
+                class="btn btn-primary"
+                onclick="downloadMaintenanaceInfo()"
+                value="Download"
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                type="button"
+                class="btn btn-primary"
+                onclick="copyToClipboard()"
+                value="Copy"
+              />
+            </div>
           </div>
         </div>
+        <hr class="my-5" />
       </main>
     </div>
   </body>
@@ -189,10 +206,11 @@
       preventLoginEndDateTime: ""
     }
 
+    // theme: "ace/theme/monokai",
     var editor = ace.edit("editor", {
-      theme: "ace/theme/monokai",
+      theme: "ace/theme/github",
       mode: "ace/mode/javascript",
-      minLines: 20,
+      minLines: 18,
       maxLines: 40,
       autoScrollEditorIntoView: true
     })
@@ -241,6 +259,7 @@
 
     function updateEditorContent() {
       editor.setValue(JSON.stringify(maintenanceInfo, null, 2))
+      editor.gotoLine(editor.session.getLength())
     }
 
     function pipeSeperatedValuesToArray(psValue) {
@@ -277,7 +296,7 @@
       alert("Content copied")
     }
 
-    function autoFillDemo() {
+    function autoFillMockData() {
       document.getElementById("mainTitle").value =
         "Scheduled maintenance on 7 Mar"
       document.getElementById("serviceTitle").value =
@@ -294,6 +313,17 @@
         "2021/04/28 04:00"
       document.getElementById("preventLoginEndDateTime").value =
         "2021/04/29 04:00"
+    }
+
+    function clearAllFields() {
+      document.getElementById("mainTitle").value = ""
+      document.getElementById("serviceTitle").value = ""
+      document.getElementById("maintenanceSchedule").value = ""
+      document.getElementById("courtesyLine").value = ""
+      document.getElementById("notificationStartDateTime").value = ""
+      document.getElementById("notificationEndDateTime").value = ""
+      document.getElementById("preventLoginStartDateTime").value = ""
+      document.getElementById("preventLoginEndDateTime").value = ""
     }
   </script>
 </html>
