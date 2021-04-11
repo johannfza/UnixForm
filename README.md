@@ -15,7 +15,7 @@ A simple bootstrap for for generating a custom JSON file
 
 #### Slim version
 
-does not support ace worker for checking syntax
+Does not support ace worker for checking syntax
 
 1. Download index-min.html
 
