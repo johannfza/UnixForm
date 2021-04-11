@@ -13,7 +13,7 @@ A simple bootstrap for for generating a custom JSON file
 1. Download the repo
 2. Open index.html in your preferred browser
 
-Slim version - does not support ace worker for checking syntax
+##### Slim version - does not support ace worker for checking syntax
 
 1. Download index-min.html
 
