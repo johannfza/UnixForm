@@ -4,32 +4,38 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
     <title>UnixForm</title>
-    <!-- Ace Editor-->
-    <style type="text/css" media="screen">
-      #editor {
-        margin: auto;
-        height: 800px;
-        width: 100%;
-      }
-      .scrollmargin {
-        height: 0px;
-        text-align: center;
-      }
-    </style>
 
-    <!-- Bootstrap -->
-    <link
-      rel="stylesheet"
-      href="./resources/bootstrap-5.0.0-beta3-dist/css/bootstrap.min.css"
-    />
-
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="./resources/datetimepicker/jquery.datetimepicker.css"
-    />
+    <section role="styles">
+      <section role="imported styles">
+        <!-- Bootstrap -->
+        <link
+          rel="stylesheet"
+          href="./resources/bootstrap-5.0.0-beta3-dist/css/bootstrap.min.css"
+        />
+        <!-- jQuery: Clean DateTimePicker -->
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="./resources/datetimepicker/jquery.datetimepicker.css"
+        />
+      </section>
+      <section role="local styles">
+        <!-- Ace Editor Custom-->
+        <style type="text/css" media="screen">
+          #editor {
+            margin: auto;
+            height: 800px;
+            width: 100%;
+          }
+          .scrollmargin {
+            height: 0px;
+            text-align: center;
+          }
+        </style>
+      </section>
+    </section>
   </head>
   <body class="bg-light">
     <div class="container">
@@ -180,150 +186,156 @@
       </main>
     </div>
   </body>
+  <section role="scripts">
+    <section role="imported scripts">
+      <!-- jQuery ./resources/jquery/jquery.js -->
+      <script type="" src="./resources/jquery/jquery.js"></script>
+      <!-- Bootstrap ./resources/bootstrap-5.0.0-beta3-dist/js/bootstrap.bundle.min.js -->
+      <script src="./resources/bootstrap-5.0.0-beta3-dist/js/bootstrap.bundle.min.js"></script>
+      <!-- DateTimePicker ./resources/datetimepicker/jquery.datetimepicker.js -->
+      <script src="./resources/datetimepicker/jquery.datetimepicker.js"></script>
+      <!-- Ace ./resources/ace-builds-master/src-min-noconflict/ace.js -->
+      <script
+        src="resources/ace-builds-master/src-min-noconflict/ace.js"
+        type="text/javascript"
+        charset="utf-8"
+      ></script>
+    </section>
+    <section role="local scripts">
+      <!-- Functions -->
+      <script>
+        var maintenanceInfo = {
+          mainTitle: "",
+          serviceTitle: "",
+          maintenanceSchedule: [],
+          courtesyLine: "",
+          notificationStartDateTime: "",
+          notificationEndDateTime: "",
+          preventLoginStartDateTime: "",
+          preventLoginEndDateTime: ""
+        }
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script type="" src="./resources/jquery/jquery.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="./resources/bootstrap-5.0.0-beta3-dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Date time Js -->
-  <script src="./resources/datetimepicker/jquery.datetimepicker.js"></script>
+        // theme: "ace/theme/monokai",
+        var editor = ace.edit("editor", {
+          theme: "ace/theme/github",
+          mode: "ace/mode/javascript",
+          minLines: 18,
+          maxLines: 40,
+          autoScrollEditorIntoView: true
+        })
+        document.getElementById("editor").style.fontSize = "16px"
 
-  <!-- ace -->
-  <script
-    src="resources/ace-builds-master/src-min-noconflict/ace.js"
-    type="text/javascript"
-    charset="utf-8"
-  ></script>
-  <script>
-    var maintenanceInfo = {
-      mainTitle: "",
-      serviceTitle: "",
-      maintenanceSchedule: [],
-      courtesyLine: "",
-      notificationStartDateTime: "",
-      notificationEndDateTime: "",
-      preventLoginStartDateTime: "",
-      preventLoginEndDateTime: ""
-    }
+        $("#notificationStartDateTime").datetimepicker()
+        $("#notificationEndDateTime").datetimepicker()
+        $("#preventLoginStartDateTime").datetimepicker()
+        $("#preventLoginEndDateTime").datetimepicker()
 
-    // theme: "ace/theme/monokai",
-    var editor = ace.edit("editor", {
-      theme: "ace/theme/github",
-      mode: "ace/mode/javascript",
-      minLines: 18,
-      maxLines: 40,
-      autoScrollEditorIntoView: true
-    })
-    document.getElementById("editor").style.fontSize = "16px"
+        function submitForm() {
+          maintenanceInfo.mainTitle = document.getElementById("mainTitle").value
+          maintenanceInfo.serviceTitle = document.getElementById(
+            "serviceTitle"
+          ).value
+          maintenanceInfo.maintenanceSchedule = pipeSeperatedValuesToArray(
+            document.getElementById("maintenanceSchedule").value
+          )
+          maintenanceInfo.courtesyLine = document.getElementById(
+            "courtesyLine"
+          ).value
+          maintenanceInfo.notificationStartDateTime = Date.parse(
+            document.getElementById("notificationStartDateTime").value
+          ).toString()
+          maintenanceInfo.notificationEndDateTime = Date.parse(
+            document.getElementById("notificationEndDateTime").value
+          ).toString()
+          maintenanceInfo.preventLoginStartDateTime = Date.parse(
+            document.getElementById("preventLoginStartDateTime").value
+          ).toString()
+          maintenanceInfo.preventLoginEndDateTime = Date.parse(
+            document.getElementById("preventLoginEndDateTime").value
+          ).toString()
+          console.log("Generating template with data...")
+          console.log(maintenanceInfo)
+          updateEditorContent()
+        }
 
-    $("#notificationStartDateTime").datetimepicker()
-    $("#notificationEndDateTime").datetimepicker()
-    $("#preventLoginStartDateTime").datetimepicker()
-    $("#preventLoginEndDateTime").datetimepicker()
+        document.addEventListener("DOMContentLoaded", initlialize)
 
-    function submitForm() {
-      maintenanceInfo.mainTitle = document.getElementById("mainTitle").value
-      maintenanceInfo.serviceTitle = document.getElementById(
-        "serviceTitle"
-      ).value
-      maintenanceInfo.maintenanceSchedule = pipeSeperatedValuesToArray(
-        document.getElementById("maintenanceSchedule").value
-      )
-      maintenanceInfo.courtesyLine = document.getElementById(
-        "courtesyLine"
-      ).value
-      maintenanceInfo.notificationStartDateTime = Date.parse(
-        document.getElementById("notificationStartDateTime").value
-      ).toString()
-      maintenanceInfo.notificationEndDateTime = Date.parse(
-        document.getElementById("notificationEndDateTime").value
-      ).toString()
-      maintenanceInfo.preventLoginStartDateTime = Date.parse(
-        document.getElementById("preventLoginStartDateTime").value
-      ).toString()
-      maintenanceInfo.preventLoginEndDateTime = Date.parse(
-        document.getElementById("preventLoginEndDateTime").value
-      ).toString()
-      console.log("Generating template with data...")
-      console.log(maintenanceInfo)
-      updateEditorContent()
-    }
+        function initlialize() {
+          console.log("DOM content loaded")
+          var editor = ace.edit("editor")
+          updateEditorContent()
+        }
 
-    document.addEventListener("DOMContentLoaded", initlialize)
+        function updateEditorContent() {
+          editor.setValue(JSON.stringify(maintenanceInfo, null, 2))
+          editor.gotoLine(editor.session.getLength())
+        }
 
-    function initlialize() {
-      console.log("DOM content loaded")
-      var editor = ace.edit("editor")
-      updateEditorContent()
-    }
+        function pipeSeperatedValuesToArray(psValue) {
+          if (psValue == "") {
+            return []
+          }
+          var array = psValue.split("|")
+          array = array.map((s) => s.trim())
 
-    function updateEditorContent() {
-      editor.setValue(JSON.stringify(maintenanceInfo, null, 2))
-      editor.gotoLine(editor.session.getLength())
-    }
+          return array
+        }
 
-    function pipeSeperatedValuesToArray(psValue) {
-      if (psValue == "") {
-        return []
-      }
-      var array = psValue.split("|")
-      array = array.map((s) => s.trim())
+        function downloadMaintenanaceInfo() {
+          var fileName = "maintenanceInfo.json"
+          var data = editor.getValue()
+          console.log(data)
 
-      return array
-    }
+          var dataStr =
+            "data:text/json;charset=utf-8," + encodeURIComponent(data)
+          var downloadAnchorNode = document.createElement("a")
+          downloadAnchorNode.setAttribute("href", dataStr)
+          downloadAnchorNode.setAttribute("download", fileName)
+          document.body.appendChild(downloadAnchorNode) // required for firefox
+          downloadAnchorNode.click()
+          downloadAnchorNode.remove()
+        }
 
-    function downloadMaintenanaceInfo() {
-      var fileName = "maintenanceInfo.json"
-      var data = editor.getValue()
-      console.log(data)
+        function copyToClipboard() {
+          var el = document.createElement("textarea")
+          document.body.appendChild(el)
+          el.value = editor.getValue()
+          el.select()
+          document.execCommand("copy")
+          document.body.removeChild(el)
+          alert("Content copied")
+        }
 
-      var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(data)
-      var downloadAnchorNode = document.createElement("a")
-      downloadAnchorNode.setAttribute("href", dataStr)
-      downloadAnchorNode.setAttribute("download", fileName)
-      document.body.appendChild(downloadAnchorNode) // required for firefox
-      downloadAnchorNode.click()
-      downloadAnchorNode.remove()
-    }
+        function autoFillMockData() {
+          document.getElementById("mainTitle").value =
+            "Scheduled maintenance on 7 Mar"
+          document.getElementById("serviceTitle").value =
+            "Service affected on 7 Mar"
+          document.getElementById("maintenanceSchedule").value =
+            "Maintenance Schedule 1 | Maintenance Schedule 2 | Maintenance Schedule 3"
+          document.getElementById("courtesyLine").value =
+            "We apologise for any inconvinience caused"
+          document.getElementById("notificationStartDateTime").value =
+            "2021/04/14 03:00"
+          document.getElementById("notificationEndDateTime").value =
+            "2021/04/30 04:00"
+          document.getElementById("preventLoginStartDateTime").value =
+            "2021/04/28 04:00"
+          document.getElementById("preventLoginEndDateTime").value =
+            "2021/04/29 04:00"
+        }
 
-    function copyToClipboard() {
-      var el = document.createElement("textarea")
-      document.body.appendChild(el)
-      el.value = editor.getValue()
-      el.select()
-      document.execCommand("copy")
-      document.body.removeChild(el)
-      alert("Content copied")
-    }
-
-    function autoFillMockData() {
-      document.getElementById("mainTitle").value =
-        "Scheduled maintenance on 7 Mar"
-      document.getElementById("serviceTitle").value =
-        "Service affected on 7 Mar"
-      document.getElementById("maintenanceSchedule").value =
-        "Maintenance Schedule 1 | Maintenance Schedule 2 | Maintenance Schedule 3"
-      document.getElementById("courtesyLine").value =
-        "We apologise for any inconvinience caused"
-      document.getElementById("notificationStartDateTime").value =
-        "2021/04/14 03:00"
-      document.getElementById("notificationEndDateTime").value =
-        "2021/04/30 04:00"
-      document.getElementById("preventLoginStartDateTime").value =
-        "2021/04/28 04:00"
-      document.getElementById("preventLoginEndDateTime").value =
-        "2021/04/29 04:00"
-    }
-
-    function clearAllFields() {
-      document.getElementById("mainTitle").value = ""
-      document.getElementById("serviceTitle").value = ""
-      document.getElementById("maintenanceSchedule").value = ""
-      document.getElementById("courtesyLine").value = ""
-      document.getElementById("notificationStartDateTime").value = ""
-      document.getElementById("notificationEndDateTime").value = ""
-      document.getElementById("preventLoginStartDateTime").value = ""
-      document.getElementById("preventLoginEndDateTime").value = ""
-    }
-  </script>
+        function clearAllFields() {
+          document.getElementById("mainTitle").value = ""
+          document.getElementById("serviceTitle").value = ""
+          document.getElementById("maintenanceSchedule").value = ""
+          document.getElementById("courtesyLine").value = ""
+          document.getElementById("notificationStartDateTime").value = ""
+          document.getElementById("notificationEndDateTime").value = ""
+          document.getElementById("preventLoginStartDateTime").value = ""
+          document.getElementById("preventLoginEndDateTime").value = ""
+        }
+      </script>
+    </section>
+  </section>
 </html>
