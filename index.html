@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>UnixForm</title>
+    <title>Maintenance Info</title>
 
     <section role="styles">
       <section role="imported styles">
@@ -41,7 +41,7 @@
     <div class="container">
       <main>
         <div class="py-5 text-center">
-          <h2>Unix Form</h2>
+          <h2>Maintenance Info</h2>
           <p class="lead">Generate your .json file using the following form.</p>
         </div>
         <h4 class="mb-3">Maintenance Info</h4>
@@ -209,10 +209,10 @@
           serviceTitle: "",
           maintenanceSchedule: [],
           courtesyLine: "",
-          notificationStartDateTime: "",
-          notificationEndDateTime: "",
-          preventLoginStartDateTime: "",
-          preventLoginEndDateTime: ""
+          notificationStartDateTime: 0,
+          notificationEndDateTime: 0,
+          preventLoginStartDateTime: 0,
+          preventLoginEndDateTime: 0
         }
 
         // theme: "ace/theme/monokai",
@@ -243,22 +243,24 @@
           ).value
           maintenanceInfo.notificationStartDateTime = Date.parse(
             document.getElementById("notificationStartDateTime").value
-          ).toString()
+          )
           maintenanceInfo.notificationEndDateTime = Date.parse(
             document.getElementById("notificationEndDateTime").value
-          ).toString()
+          )
           maintenanceInfo.preventLoginStartDateTime = Date.parse(
             document.getElementById("preventLoginStartDateTime").value
-          ).toString()
+          )
           maintenanceInfo.preventLoginEndDateTime = Date.parse(
             document.getElementById("preventLoginEndDateTime").value
-          ).toString()
+          )
           console.log("Generating template with data...")
           console.log(maintenanceInfo)
           updateEditorContent()
         }
 
         window.onload = initlialize()
+
+        // document.addEventListener("DOMContentLoaded", initlialize)
 
         function initlialize() {
           console.log("Window loaded")
@@ -330,10 +332,10 @@
           document.getElementById("serviceTitle").value = ""
           document.getElementById("maintenanceSchedule").value = ""
           document.getElementById("courtesyLine").value = ""
-          document.getElementById("notificationStartDateTime").value = ""
-          document.getElementById("notificationEndDateTime").value = ""
-          document.getElementById("preventLoginStartDateTime").value = ""
-          document.getElementById("preventLoginEndDateTime").value = ""
+          document.getElementById("notificationStartDateTime").value = 0
+          document.getElementById("notificationEndDateTime").value = 0
+          document.getElementById("preventLoginStartDateTime").value = 0
+          document.getElementById("preventLoginEndDateTime").value = 0
         }
       </script>
     </section>
