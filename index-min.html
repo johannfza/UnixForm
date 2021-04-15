@@ -334,10 +334,12 @@ ace.define("ace/theme/github",["require","exports","module","ace/lib/dom"],funct
           updateEditorContent()
         }
 
-        document.addEventListener("DOMContentLoaded", initlialize)
+        window.onload = initlialize()
+
+        // document.addEventListener("DOMContentLoaded", initlialize)
 
         function initlialize() {
-          console.log("DOM content loaded")
+          console.log("Window loaded")
           var editor = ace.edit("editor")
           updateEditorContent()
         }

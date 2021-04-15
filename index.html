@@ -258,10 +258,10 @@
           updateEditorContent()
         }
 
-        document.addEventListener("DOMContentLoaded", initlialize)
+        window.onload = initlialize()
 
         function initlialize() {
-          console.log("DOM content loaded")
+          console.log("Window loaded")
           var editor = ace.edit("editor")
           updateEditorContent()
         }
