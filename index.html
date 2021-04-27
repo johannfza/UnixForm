@@ -241,17 +241,25 @@
           maintenanceInfo.courtesyLine = document.getElementById(
             "courtesyLine"
           ).value
-          maintenanceInfo.notificationStartDateTime = Date.parse(
-            document.getElementById("notificationStartDateTime").value
+          maintenanceInfo.notificationStartDateTime = Math.round(
+            Date.parse(
+              document.getElementById("notificationStartDateTime").value
+            ) / 1000
           )
-          maintenanceInfo.notificationEndDateTime = Date.parse(
-            document.getElementById("notificationEndDateTime").value
+          maintenanceInfo.notificationEndDateTime = Math.round(
+            Date.parse(
+              document.getElementById("notificationEndDateTime").value
+            ) / 1000
           )
-          maintenanceInfo.preventLoginStartDateTime = Date.parse(
-            document.getElementById("preventLoginStartDateTime").value
+          maintenanceInfo.preventLoginStartDateTime = Math.round(
+            Date.parse(
+              document.getElementById("preventLoginStartDateTime").value
+            ) / 1000
           )
-          maintenanceInfo.preventLoginEndDateTime = Date.parse(
-            document.getElementById("preventLoginEndDateTime").value
+          maintenanceInfo.preventLoginEndDateTime = Math.round(
+            Date.parse(
+              document.getElementById("preventLoginEndDateTime").value
+            ) / 1000
           )
           console.log("Generating template with data...")
           console.log(maintenanceInfo)
